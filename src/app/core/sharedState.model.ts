@@ -9,3 +9,4 @@ export class SharedState {
 }
 
 export const SHARED_STATE = new InjectionToken('shared_state');
+
