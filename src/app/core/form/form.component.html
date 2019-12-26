@@ -1,0 +1,58 @@
+<div class="bg-primary text-white p-2 " [class.bg-warning]="editing">
+  <h5>{{editing ? 'Edit' : 'Create'}} Student</h5>
+</div>
+
+<form novalidate #form = 'ngForm' (ngSubmit)="submitForm(form)" (reset)="resetForm()">
+  <div class="form-group" >
+    <label>Name</label>
+    <input #name = 'ngModel' class="form-control" name = 'name' [(ngModel)]="students.name" required minlength="6">
+  </div>
+  <div *ngIf="name.invalid && (name.dirty || name.touched)"
+       class="alert alert-danger">
+
+    <div *ngIf="name.errors.required">
+      Name is required.
+    </div>
+    <div *ngIf="name.errors.minlength">
+      Name must be at least 6 characters.
+    </div>
+  </div>
+
+  <div class="form-group" >
+    <label>Age</label>
+    <input type="number" #age = 'ngModel' class="form-control" name = 'age' [(ngModel)]="students.age" required pattern="^[2-6\.]{1}[0-9\.]{1}$">
+  </div>
+  <div *ngIf="age.invalid && (age.dirty || age.touched)"
+       class="alert alert-danger">
+
+    <div *ngIf="age.errors.required">
+      Age is required.
+    </div>
+    <div *ngIf="age.errors">
+      Age must be 20-60
+    </div>
+  </div>
+
+
+  <div class="form-group" >
+    <label>Address</label>
+    <input #address = 'ngModel' class="form-control" name = 'address' [(ngModel)]="students.address" required minlength="5" pattern="^[A-Z]{1}[a-zA-Z0-9\s]+$">
+  </div>
+  <div *ngIf="address.invalid && (address.dirty || address.touched)"
+       class="alert alert-danger">
+
+    <div *ngIf="address.errors.required">
+      Address is required.
+    </div>
+    <div *ngIf="address.errors.minlength">
+      Address must be at least 5 characters.
+    </div>
+    <div *ngIf="address.errors">
+      Address must be start with A-Z.
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary m-1" [class.bg-warning]="editing" [disabled]="form.invalid">
+    {{editing ? 'Save' : 'Create'}}
+  </button>
+</form>

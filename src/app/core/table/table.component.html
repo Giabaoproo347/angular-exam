@@ -1,0 +1,22 @@
+<table class="table table-sm table-bordered table-striped">
+  <tr class="bg-info" align="center">
+    <th>ID</th>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Address</th>
+    <th>Function</th>
+  </tr>
+  <tr *ngFor="let item of getStudents()" align="center">
+    <td style="vertical-align: middle">{{item.id}}</td>
+    <td style="vertical-align: middle">{{item.name}}</td>
+    <td style="vertical-align: middle">{{item.age}}</td>
+    <td style="vertical-align: middle">{{item.address}}</td>
+    <td>
+      <button class="btn btn-sm btn-outline-danger" (click)="editStudent(item.id)">Edit</button>
+      <button class="btn btn-sm btn-outline-success" (click)="deleteStudent(item.id)">Delete</button>
+    </td>
+  </tr>
+</table>
+<button class="btn btn-sm btn-outline-success" (click)="createStudent()">
+  Create New Student
+</button>
