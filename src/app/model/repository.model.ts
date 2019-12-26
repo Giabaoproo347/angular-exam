@@ -21,26 +21,21 @@ export class Model {
 
   saveStudent(student: Student) {
     if (student.id === 0 || student.id === null) {
-      student.id = this.generateID();
-      this.students.push(student);
+      this.dataSource.saveStudent(student).subscribe(s => this.students.push(s));
     } else {
-      const  index = this.students.findIndex(s => this.locator(s, student.id));
-      this.students.splice(index, 1 , student);
+      this.dataSource.updateStudent(student).subscribe(s => {
+        const index = this.students.findIndex(item => this.locator(item, s.id));
+        this.students.splice(index, 1, s);
+      });
     }
   }
 
   deleteStudent(id: number) {
-    const  index = this.students.findIndex(s => this.locator(s, id));
-    if (index > -1) {
-      this.students.splice(index, 1);
-    }
-  }
-
-  private generateID(): number {
-    let candidate = 100;
-    while (this.getStudent(candidate) != null) {
-      candidate++;
-    }
-    return  candidate;
+    this.dataSource.deleteStudent(id).subscribe(() => {
+      const index = this.students.findIndex(s => this.locator(s, id));
+      if (index > -1) {
+        this.students.splice(index, 1);
+      }
+    });
   }
 }
